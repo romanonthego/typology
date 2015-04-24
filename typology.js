@@ -387,11 +387,13 @@
       a = (o || {}).proto || [];
       a = Array.isArray(a) ? a : [a];
       tmp = {};
-      for (k in a)
+
+      a.forEach(function(k) {
         if (_customTypes[a[k]] === undefined) {
           _customTypes[a[k]] = 1;
           tmp[a[k]] = 1;
         }
+      });
 
       if ((this.get(type) !== 'function') && !this.isValid(type))
         throw new Error('A type requires a valid definition. ' +
@@ -518,10 +520,13 @@
 
       if (this.get(type) === 'string') {
         a = type.replace(/^[\?\!]/, '').split(/\|/);
-        for (i in a)
-          if (__nativeTypes.indexOf(a[i]) < 0 && !(a[i] in _customTypes))
+        
+        a.forEach(function(i) {
+          if (__nativeTypes.indexOf(a[i]) < 0 && !(a[i] in _customTypes)) {
             return false;
-        return true;
+          };
+        });
+        return true
 
       } else if (this.get(type) === 'object') {
         for (k in type)
