@@ -73,11 +73,10 @@
         ];
 
     // Fill types
-    for (k in classes) {
-      className = classes[k];
+    classes.forEach(function(className) {
       __nativeTypes.push(className.toLowerCase());
       __class2type['[object ' + className + ']'] = className.toLowerCase();
-    }
+    })
   })();
 
 
